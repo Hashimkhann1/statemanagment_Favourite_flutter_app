@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 
 
 class CustomTextfield extends StatelessWidget {
-  CustomTextfield({required this.hintText,this.icon,this.fieldValueChanged});
+  CustomTextfield({required this.hintText,this.icon,this.fieldValueChanged,this.passorText = false,});
   String? hintText;
   Icon? icon;
   ValueChanged<String>? fieldValueChanged;
+  bool? passorText;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: passorText!,
       onChanged: fieldValueChanged,
       decoration: InputDecoration(
         hintText: hintText,

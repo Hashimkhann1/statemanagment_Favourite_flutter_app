@@ -1,7 +1,9 @@
 import 'package:favourite_flutter/provider/bottomNavigatorProvider.dart';
 import 'package:favourite_flutter/provider/getGalleryImageProvider.dart';
+import 'package:favourite_flutter/view/auth/login.dart';
 import 'package:favourite_flutter/view/bottomNavigator.dart';
 import 'package:favourite_flutter/view/home.dart';
+import 'package:favourite_flutter/view/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigator(),
+      // home: BottomNavigator(),
+        home: SplashScreen(),
     )
     );
 

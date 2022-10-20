@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favourite_flutter/utils/colorResources.dart';
 import 'package:favourite_flutter/widgets/AppText.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +15,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _auth = FirebaseAuth.instance;
+
+  void FavouriteDataToDatabase(String itemName,String itemPrice,String imageUrl) async {
+    await _firestore.collection('${_auth.currentUser?.email}favouriteData').add({
+      'itemName' : itemName,
+      'ItemPrice' : itemPrice,
+      'itemImageUrl' : imageUrl
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: ColorResource.lightBlackColor,
           title: AppText(title: 'Favourite'),
         ),
@@ -56,8 +68,10 @@ class _HomeState extends State<Home> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                AppText(title: snapshot.data?.docs[index].data()['itemName'],textSize: 26,textFontWeight: FontWeight.w700,textColor: ColorResource.lightBlackColor,),
-                                Icon(Icons.thumb_up_outlined)
+                                AppText(title: snapshot.data!.docs[index].data()['itemName'].toString().length >= 13 ? snapshot.data?.docs[index].data()['itemName'].toString().substring(0,12) : snapshot.data?.docs[index].data()['itemName'].toString() ,textSize: 26,textFontWeight: FontWeight.w700,textColor: ColorResource.lightBlackColor,),
+                                IconButton(onPressed: (){
+                                  FavouriteDataToDatabase(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
+                                }, icon:  Icon(Icons.thumb_up_outlined))
                               ],
                             ),
                             SizedBox(height: 2,),
