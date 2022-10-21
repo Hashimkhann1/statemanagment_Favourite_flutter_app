@@ -19,7 +19,6 @@ class CustomTextButton extends StatelessWidget {
         backgroundColor: btnBackgroundColor,
         padding: btnPadding,
       ),
-
         onPressed: pressed,
         child: Text(btnTitle.toString(),style: TextStyle(
           color: btnTextColor,

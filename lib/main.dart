@@ -1,5 +1,6 @@
 import 'package:favourite_flutter/provider/bottomNavigatorProvider.dart';
 import 'package:favourite_flutter/provider/getGalleryImageProvider.dart';
+import 'package:favourite_flutter/provider/my_favourite_provier.dart';
 import 'package:favourite_flutter/view/auth/login.dart';
 import 'package:favourite_flutter/view/bottomNavigator.dart';
 import 'package:favourite_flutter/view/home.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
        ChangeNotifierProvider(create: (_) => BottomNavigatorProvider()),
-        ChangeNotifierProvider(create: (_) => GalleryImagePickerProvider())
+        ChangeNotifierProvider(create: (_) => GalleryImagePickerProvider()),
+        ChangeNotifierProvider(create: (_) => MyFavouriteProvider())
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
