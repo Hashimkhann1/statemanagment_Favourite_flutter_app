@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void SplashTimer() async {
      await Future.delayed(Duration(seconds: 3));
+     print(_auth.currentUser);
      Navigator.push(context, MaterialPageRoute(builder: (context) => _auth.currentUser != null ? BottomNavigator() : Login()));
   }
 

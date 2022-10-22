@@ -19,50 +19,64 @@ class MyFavourite extends StatefulWidget {
 
 class _MyFavouriteState extends State<MyFavourite> {
 
+
   @override
   Widget build(BuildContext context) {
     final imageProvider = Provider.of<MyFavouriteProvider>(context);
+    // print(_auth.currentUser);
+    // print(imageProvider.favouriteItems);
+    // print(imageProvider.favouriteItems[1]['itemName']);
+    // print(imageProvider.favouriteItems[2]['itemName']);
     return SafeArea(
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: ColorResource.lightBlackColor,
             title: AppText(title: 'Favourite'),
           ),
-      body: imageProvider.selectedItems != null ? Card(
-        elevation: 30,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage.assetNetwork(
-                placeholder: 'images/loading.gif',
-                image: imageProvider.selectedItems['imageUrl'] != null ? imageProvider.selectedItems['imageUrl'] : 'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
-                width: double.maxFinite,
-                height: MediaQuery.of(context).size.height * 0.4,
-                fit: BoxFit.fill,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppText(title: imageProvider.selectedItems['itemName'] != null ? imageProvider.selectedItems['itemName'].toString() : 'No Data'.toString(),textSize: 26,textFontWeight: FontWeight.w700,textColor: ColorResource.lightBlackColor,),
-                      Icon(Icons.thumb_up_outlined)
-                    ],
-                  ),
-                  SizedBox(height: 2,),
-                  AppText(title: 'Rs ${imageProvider.selectedItems['itemPrice'] != null ? imageProvider.selectedItems['itemPrice'] : 'No Data'}',textColor: ColorResource.primaryColor,)
-                ],
-              ),
-            )
-          ],
-        ),
-      ) : Text('No Data Found')
+      body: imageProvider.favouriteItems != null ?
+     Consumer<MyFavouriteProvider>(builder: (context , value , child){
+       return  ListView.builder(
+         itemCount: value.favouriteItems.length,
+           itemBuilder: (context , index) {
+           print('hashim khan');
+           print(value.favouriteItems.contains(value.favouriteItems[index]['itemName']));
+             return Card(
+               elevation: 30,
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: <Widget>[
+                   ClipRRect(
+                     borderRadius: BorderRadius.circular(5),
+                     child: FadeInImage.assetNetwork(
+                       placeholder: 'images/loading.gif',
+                       image: value.favouriteItems[index]['imageUrl'] != null ? value.favouriteItems[index]['imageUrl'] : 'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+                       width: double.maxFinite,
+                       height: MediaQuery.of(context).size.height * 0.4,
+                       fit: BoxFit.fill,
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             AppText(title: value.favouriteItems[index]['itemName'] != null ? value.favouriteItems[index]['itemName'].toString() : 'No Data'.toString(),textSize: 26,textFontWeight: FontWeight.w700,textColor: ColorResource.lightBlackColor,),
+                             value.favouriteItems.contains(value.favouriteItems[index]['itemName']) ? Icon(Icons.thumb_up,color: ColorResource.primaryColor,) : Icon(Icons.thumb_up_outlined),
+                           ],
+                         ),
+                         SizedBox(height: 2,),
+                         AppText(title: 'Rs ${value.favouriteItems[index]['itemPrice'] != null ? value.favouriteItems[index]['itemPrice'] : 'No Data'}',textColor: ColorResource.primaryColor,)
+                       ],
+                     ),
+                   )
+                 ],
+               ),
+             );
+           });
+     }) : Text('No Data Found')
     ));
   }
 }

@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
                                 IconButton(onPressed: (){
                                   itemProvider.addItem(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
                                   // FavouriteDataToDatabase(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
-                                }, icon:  Icon(Icons.thumb_up_outlined))
+                                }, icon: Icon(Icons.thumb_up_outlined))
                               ],
                             ),
                             SizedBox(height: 2,),

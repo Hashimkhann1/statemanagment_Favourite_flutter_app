@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favourite_flutter/provider/getGalleryImageProvider.dart';
 import 'package:favourite_flutter/utils/colorResources.dart';
+import 'package:favourite_flutter/view/bottomNavigator.dart';
 import 'package:favourite_flutter/view/home.dart';
 import 'package:favourite_flutter/widgets/AppText.dart';
 import 'package:favourite_flutter/widgets/customTextButton.dart';
@@ -46,7 +47,7 @@ class _AddItemsState extends State<AddItems> {
         'imageUrl' : imageurl,
       });
       toastMessage('Item added Successfullly');
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigator()));
     }catch(error){
       print('error while uploading data to DataBase $error');
     }

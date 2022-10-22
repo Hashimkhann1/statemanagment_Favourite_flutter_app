@@ -3,14 +3,23 @@ import 'package:flutter/material.dart';
 
 class MyFavouriteProvider with ChangeNotifier{
 
-  Map selectedItems = {};
+  List _favouriteItems = [];
+  List get favouriteItems => _favouriteItems;
+
 
   void addItem(String itemName,String itemPrice, String imageUrl) {
-    selectedItems['itemName'] = itemName;
-    selectedItems['itemPrice'] = itemPrice;
-    selectedItems['imageUrl'] = imageUrl;
+    // selectedItems['itemName'] = itemName;
+    // selectedItems['itemPrice'] = itemPrice;
+    // selectedItems['imageUrl'] = imageUrl;
+    Map selectedItems = {
+      'itemName' : itemName,
+      'itemPrice' : itemPrice,
+      'imageUrl' : imageUrl,
+    };
+    _favouriteItems.add(selectedItems);
+    // print(favouriteItems);
 
-    print(selectedItems);
+    // print(selectedItems);
     ChangeNotifier();
   }
 
