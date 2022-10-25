@@ -20,7 +20,8 @@ class MyFavouriteProvider with ChangeNotifier{
     // print(favouriteItems);
 
     // print(selectedItems);
-    ChangeNotifier();
+    // ChangeNotifier();
+    notifyListeners();
   }
 
   void removeItem() {}

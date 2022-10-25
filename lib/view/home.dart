@@ -19,17 +19,18 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _auth = FirebaseAuth.instance;
 
-  // void FavouriteDataToDatabase(String itemName,String itemPrice,String imageUrl) async {
-  //   await _firestore.collection('${_auth.currentUser?.email}favouriteData').add({
-  //     'itemName' : itemName,
-  //     'ItemPrice' : itemPrice,
-  //     'itemImageUrl' : imageUrl
-  //   });
-  // }
+  void FavouriteDataToDatabase(String itemName,String itemPrice,String imageUrl) async {
+    await _firestore.collection('favouriteItemOf${_auth.currentUser?.email}').add({
+      'itemName' : itemName,
+      'ItemPrice' : itemPrice,
+      'itemImageUrl' : imageUrl
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final itemProvider = Provider.of<MyFavouriteProvider>(context,listen: false);
+    final itemProvider = Provider.of<MyFavouriteProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -44,9 +45,17 @@ class _HomeState extends State<Home> {
               return Center(child: CircularProgressIndicator());
             }
             else if(snapshot.hasData){
+              int? matchIndex;
               return ListView.builder(
                 itemCount: snapshot.data?.docs.length,
                   itemBuilder: (context , index){
+                    // itemProvider.favouriteItems.forEach((element) {
+                    //   if(element['itemName'] == snapshot.data?.docs[index].data()['itemName']){
+                    //     matchIndex = index;
+                    //     print(matchIndex);
+                    //   }
+                    // });
+
                 return Card(
                   elevation: 20,
                   child: Column(
@@ -73,9 +82,10 @@ class _HomeState extends State<Home> {
                               children: [
                                 AppText(title: snapshot.data!.docs[index].data()['itemName'].toString().length >= 13 ? snapshot.data?.docs[index].data()['itemName'].toString().substring(0,12) : snapshot.data?.docs[index].data()['itemName'].toString() ,textSize: 26,textFontWeight: FontWeight.w700,textColor: ColorResource.lightBlackColor,),
                                 IconButton(onPressed: (){
-                                  itemProvider.addItem(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
-                                  // FavouriteDataToDatabase(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
-                                }, icon: Icon(Icons.thumb_up_outlined))
+                                  // itemProvider.addItem(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
+                                  FavouriteDataToDatabase(snapshot.data?.docs[index].data()['itemName'], snapshot.data?.docs[index].data()['itemPrice'], snapshot.data?.docs[index].data()['imageUrl']);
+                                }, icon: Icon(matchIndex == index ? Icons.thumb_up : Icons.thumb_up_outlined,
+                                  color:  ColorResource.primaryColor,))
                               ],
                             ),
                             SizedBox(height: 2,),
