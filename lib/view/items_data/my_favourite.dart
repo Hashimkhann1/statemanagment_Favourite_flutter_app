@@ -88,7 +88,7 @@ class _MyFavouriteState extends State<MyFavourite> {
                                           textColor:
                                               ColorResource.lightBlackColor,
                                         ),
-                                        Icon(Icons.thumb_up_outlined)
+                                        Icon(Icons.thumb_up , color: ColorResource.primaryColor,)
                                       ],
                                     ),
                                     SizedBox(
